@@ -24,23 +24,6 @@ class LambdaTest extends AnyFlatSpec with Matchers with PrivateMethodTester {
     actual._3 shouldBe 535
   }
 
-  it should "Correctly comparing two string timestamps" in {
-    val time1 = "16:28:44.276"
-    val time2 = "16:28:44.352"
-    search.compareTimestamps(time1, time1) shouldBe true
-    search.compareTimestamps(time1, time2) shouldBe true
-    search.compareTimestamps(time2, time1) shouldBe false
-    search.compareTimestamps("16:28:44.276", "17:28:0:0")
-  }
-
-  it should "Correctly create a new timestamp by adding a duration in the format hh:mm:ss:ms to a timestamp" in {
-    val timestamp = "16:28:44.276"
-    val duration1 = "0:0:11:345"
-    val duration2 = "4:0:2:1"
-    search.addDurationToTime(timestamp, duration1) shouldBe "16:28:55:621"
-    search.addDurationToTime(timestamp, duration2) shouldBe "20:28:46:277"
-  }
-
   it should "Correctly check if a timestamp is within the search bounds" in {
     val time1 = "10:20:44.276"
     val time2 = "10:30:44.276"
@@ -58,9 +41,9 @@ class LambdaTest extends AnyFlatSpec with Matchers with PrivateMethodTester {
     val doesNotExistTarget = "16:30:44.276"
     val duration = "0:0:0:0"
 
-    search.startSearch(testLogFile, existTarget1, duration) shouldBe "Found"
-    search.startSearch(testLogFile, existTarget2, duration) shouldBe "Found"
-    search.startSearch(testLogFile, doesNotExistTarget, duration) shouldBe "Not Found"
+    search.indexOfLog(testLogFile, existTarget1, duration) shouldBe 0
+    search.indexOfLog(testLogFile, existTarget2, duration) shouldBe 763
+    search.indexOfLog(testLogFile, doesNotExistTarget, duration) shouldBe -1
   }
 
   it should "Correctly run binary search for timestamps within duration" in {
@@ -71,8 +54,8 @@ class LambdaTest extends AnyFlatSpec with Matchers with PrivateMethodTester {
     val time3 = "16:28:44.300"
     val duration3 = "0:0:0:4"
 
-    search.startSearch(testLogFile, time1, duration1) shouldBe "Found"
-    search.startSearch(testLogFile, time2, duration2) shouldBe "Found"
-    search.startSearch(testLogFile, time3, duration3) shouldBe "Not Found"
+    search.indexOfLog(testLogFile, time1, duration1) shouldBe 0
+    search.indexOfLog(testLogFile, time2, duration2) shouldBe 408
+    search.indexOfLog(testLogFile, time3, duration3) shouldBe -1
   }
 }
