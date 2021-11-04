@@ -7,7 +7,7 @@ import Homework3.TimestampUtil
 object LogSearch {
 
   val logger = LoggerFactory.getLogger(LogSearch.getClass)
-  def indexOfLog(file : String, targetTime: String, duration: String): Long = {
+  def indexOfLog(file : String, targetTime: String, duration: String): Int = {
     // Calculate initial index bounds of binary search
     val low = 0
     val high = file.length
@@ -18,7 +18,7 @@ object LogSearch {
     binarySearch(file, low, high, targetTime, limitTime, 0)
   }
 
-  def binarySearch(file : String, low : Int, high : Int, targetTime: String, timeLimit: String, stackCalls : Int) : Long = {
+  def binarySearch(file : String, low : Int, high : Int, targetTime: String, timeLimit: String, stackCalls : Int) : Int = {
     // In the event of a bug leading to an infinite recursive calls, end the binary search to avoid processing costs.
     val maxCalls = log(file.length)
     if (stackCalls > maxCalls) {

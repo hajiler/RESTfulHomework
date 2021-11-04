@@ -3,7 +3,7 @@ import org.scalatest.PrivateMethodTester
 import org.scalatest.matchers.should.Matchers
 import Homework3._
 
-class LambdaTest extends AnyFlatSpec with Matchers with PrivateMethodTester {
+class SearchTest extends AnyFlatSpec with Matchers with PrivateMethodTester {
   behavior of "AWS Lambda and search functionality"
   val testLogFile =
     "16:28:44.276 [scala-execution-context-global-123] WARN  HelperUtils.Parameters$ - A><YFqpg+~\"E1T\n" +
