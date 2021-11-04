@@ -1,0 +1,41 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 2 Scala sources to /Users/hajiler/school/cs441/RESTfulHomework/target/scala-3.0.2/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/AWSLambda.scala:11:39 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m11 |[0m[33mclass[0m [35mAWSLambda[0m [33mextends[0m [35mRequestHandler[TimeRequest, LogResponse][0m {[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                       [31m^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                       Not found: type TimeRequest[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/AWSLambda.scala:11:52 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m11 |[0m[33mclass[0m [35mAWSLambda[0m [33mextends[0m [35mRequestHandler[TimeRequest, LogResponse][0m {[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                    [31m^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                             Not found: type LogResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/AWSLambda.scala:12:36 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m12 |[0m  [33moverride[0m [33mdef[0m handleRequest(event: TimeRequest, context: Context): LogResponse = {[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                    [31m^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                    Not found: type TimeRequest[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/AWSLambda.scala:12:68 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m12 |[0m  [33moverride[0m [33mdef[0m handleRequest(event: TimeRequest, context: Context): LogResponse = {[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                                    [31m^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                             Not found: type LogResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/AWSLambda.scala:17:23 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m17 |[0m    [33mval[0m [36mresponse[0m = [33mnew[0m [35mLogResponse[0m(log = value)[0m
+[0m[[0m[31merror[0m] [0m[0m   |                       [31m^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                       Not found: type LogResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/gRPCClient.scala:27:58 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m27 |[0m                                [33mprivate[0m [33mval[0m blockingStub: SearchLogsGrpc.SearchLogsBlockingStub[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                          [31m^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                               Not found: SearchLogsGrpc[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/gRPCClient.scala:10:23 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m10 |[0m    [33mval[0m [36mblockingStub[0m = SearchLogsGrpc.blockingStub(channel)[0m
+[0m[[0m[31merror[0m] [0m[0m   |                       [31m^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                       Not found: SearchLogsGrpc[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: /Users/hajiler/school/cs441/RESTfulHomework/src/main/scala/Homework3/gRPCClient.scala:38:18 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m38 |[0m    [33mval[0m [36mrequest[0m = TimeRequest(time = time)[0m
+[0m[[0m[31merror[0m] [0m[0m   |                  [31m^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                  Not found: TimeRequest[0m
+[0m[[0m[31merror[0m] [0m[0m8 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m8 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 7 s, completed Nov 3, 2021 10:51:01 AM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

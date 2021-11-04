@@ -1,0 +1,16 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(LambdaTest, org.scalatest.tools.Framework$$anon$1@18ff4064, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLambdaTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAWS Lambda and search functionality[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should Correctly find the timestamp at the middle of a given file (technically string)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should Correctly comparing two string timestamps[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should Correctly create a new timestamp by adding a duration in the format hh:mm:ss:ms to a timestamp[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should Correctly check if a timestamp is within the search bounds[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should Correctly run binary search for exact timestamps[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should Correctly run binary search for timestamps within duration[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 1 second, 431 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 6[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 6, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	LambdaTest[0m

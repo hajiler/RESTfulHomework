@@ -1,0 +1,13 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/hajiler/school/cs441/RESTfulHomework/target/scala-3.0.2/test-classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /Users/hajiler/school/cs441/RESTfulHomework/src/test/scala/LambdaTest.scala:13:92 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m13 |[0m    search.findMidpointTimestamp(testLogFile, [31m0[0m, testLogFile.length) shouldBe [31m"16:28:44.352"[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                                                            [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |Values of types (String, Int) and String cannot be compared with == or !=[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 5 s, completed Nov 3, 2021 5:32:03 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m

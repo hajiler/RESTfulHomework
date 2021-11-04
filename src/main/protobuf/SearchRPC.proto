@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+service SearchLogs {
+  rpc SearchBetween(TimeRequest) returns (LogResponse) {}
+}
+
+message TimeRequest {
+  required string time = 1;
+}
+
+message LogResponse {
+  optional string log = 1;
+}
