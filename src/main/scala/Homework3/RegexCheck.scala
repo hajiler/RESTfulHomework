@@ -6,7 +6,7 @@ import java.util.regex.Pattern
 import HelperUtils.ObtainConfigReference
 
 object RegexCheck {
-  val config = ObtainConfigReference("randomLogGenerator") match {
+  val config = ObtainConfigReference("awsLambda") match {
     case Some(value) => value
     case None => throw new RuntimeException("Cannot obtain a reference to the config data.")
   }
@@ -26,7 +26,7 @@ object RegexCheck {
 
   // Check the log message for instance of the regex injection as designated in the compile
   def containsInjectionPattern(message: String): Boolean = {
-    val patternRegex = config.getString("randomLogGenerator.Pattern")
+    val patternRegex = config.getString("awsLambda.Pattern")
     val pattern = Pattern.compile(patternRegex)
     logger.info(s"Checking for $patternRegex in message: ${message}")
     pattern.matcher(message).find()

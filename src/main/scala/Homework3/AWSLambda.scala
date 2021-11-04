@@ -1,15 +1,16 @@
 package Homework3
 
+import HelperUtils.ObtainConfigReference
 import com.amazonaws.services.lambda.runtime.{Context, LambdaLogger, RequestHandler}
 import com.typesafe.config.{Config, ConfigFactory}
 import com.amazonaws.services.s3.{AmazonS3, AmazonS3Client, AmazonS3ClientBuilder}
 import com.google.gson.{Gson, GsonBuilder}
 import org.slf4j.{Logger, LoggerFactory}
-import SearchRPC._
+import SearchRPC.*
 
 import java.{lang, util}
 import java.util.Map
-import collection.JavaConverters._
+import collection.JavaConverters.*
 import java.util.regex.Pattern
 
 class AWSLambda extends RequestHandler[util.Map[String, String], String] {
@@ -32,8 +33,12 @@ class AWSLambda extends RequestHandler[util.Map[String, String], String] {
 }
 
 def getFile(event: util.Map[String, String]): String = {
-  val bucket = "cs441hw2"
-  val key = "LogFileGenerator.2021-10-05.log"
+  val config = ObtainConfigReference("awsLambda") match {
+    case Some(value) => value
+    case None => throw new RuntimeException("Cannot obtain a reference to the config data.")
+  }
+  val bucket = config.getString("awsLambda.Bucket")
+  val key = config.getString("awsLambda.Key")
   val awsClient = AmazonS3ClientBuilder.defaultClient()
   awsClient.getObjectAsString(bucket, key)
 }
