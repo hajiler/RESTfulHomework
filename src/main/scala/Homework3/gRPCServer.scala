@@ -5,6 +5,7 @@ import Homework3.gRPCServer.logger
 import java.util.logging.Logger
 import io.grpc.{Server, ServerBuilder}
 import SearchRPC.*
+import java.net.{URI, URL}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -69,7 +70,8 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
     val deltaM = s"deltaMinute=${request.deltaM}"
     val deltaS = s"deltaSecond=${request.deltaS}"
     val deltaMs =s"deltaMillisecond=${request.deltaMs}"
-    s"$baseURL?$time&$deltaH&$deltaM&$deltaS&$deltaMs"
+    val url= s"$baseURL?$time&$deltaH&$deltaM&$deltaS&$deltaMs"
+    url
   }
 
 }

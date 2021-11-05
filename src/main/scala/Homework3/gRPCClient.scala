@@ -15,7 +15,7 @@ object gRPCClient {
   def main(args: Array[String]): Unit = {
     val client = gRPCClient("localhost", 50051)
     try {
-      val user = args.headOption.getOrElse("16:28:44.771")
+      val user = args.headOption.getOrElse("16.28.44.771")
       client.makeSearchRequest(user)
     } finally {
       client.shutdown()
@@ -34,10 +34,10 @@ class gRPCClient private(private val channel: ManagedChannel,
 
   def makeSearchRequest(time: String): Unit = {
     logger.info(s"Looking for messages at $time")
-    val request = TimeRequest(time, "0","0", "0","0")
+    val request = TimeRequest(time, "0","0", "1","0")
     try {
       val response = blockingStub.searchBetween(request)
-      logger.info("Log found: " + response.log)
+      logger.info("Log found: " + response.log.toString)
     }
     catch {
       case e: StatusRuntimeException =>
