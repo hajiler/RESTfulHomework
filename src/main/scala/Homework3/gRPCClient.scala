@@ -24,20 +24,17 @@ object gRPCClient {
   }
 }
 
-class gRPCClient private(
-                                private val channel: ManagedChannel,
-                                private val blockingStub: SearchLogsGrpc.SearchLogsBlockingStub
-                              ) {
+class gRPCClient private(private val channel: ManagedChannel,
+                         private val blockingStub: SearchLogsGrpc.SearchLogsBlockingStub) {
   private[this] val logger = Logger.getLogger(classOf[gRPCClient].getName)
 
   def shutdown(): Unit = {
     channel.shutdown.awaitTermination(5, TimeUnit.SECONDS)
   }
 
-  /** Say hello to server. */
   def makeSearchRequest(time: String): Unit = {
     logger.info(s"Looking for messages at $time")
-    val request = TimeRequest(time = time)
+    val request = TimeRequest(time, "0","0", "0","0")
     try {
       val response = blockingStub.searchBetween(request)
       logger.info("Log found: " + response.log)

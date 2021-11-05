@@ -6,8 +6,12 @@ service SearchLogs {
 
 message TimeRequest {
   required string time = 1;
+  required string deltaH = 2;
+  required string deltaM = 3;
+  required string deltaS = 4;
+  required string deltaMs = 5;
 }
 
 message LogResponse {
-  optional string log = 1;
+  required string log = 1;
 }
