@@ -4,35 +4,36 @@ import HelperUtils.ObtainConfigReference
 import com.amazonaws.services.lambda.runtime.{Context, LambdaLogger, RequestHandler}
 import com.typesafe.config.{Config, ConfigFactory}
 import com.amazonaws.services.s3.{AmazonS3, AmazonS3Client, AmazonS3ClientBuilder}
-import com.google.gson.{Gson, GsonBuilder}
 import org.slf4j.{Logger, LoggerFactory}
 import SearchRPC.*
+import com.google.gson.{Gson, GsonBuilder, JsonObject}
 
 import java.{lang, util}
 import java.util.Map
 import collection.JavaConverters.*
 import java.util.regex.Pattern
 
-class AWSLambda extends RequestHandler[util.Map[String, String], String] {
+class AWSLambda extends RequestHandler[util.Map[String, Object], String] {
   val logger = LoggerFactory.getLogger(classOf[AWSLambda])
-  override def handleRequest(event: util.Map[String,String], context: Context): String = {
-    val gson = new GsonBuilder().setPrettyPrinting.create
+  val gson = new GsonBuilder().setPrettyPrinting.create
+  override def handleRequest(event: util.Map[String,Object], context: Context): String = {
 
     logger.info(s"Triggering search from ${event.toString}")
 
-    val response = searchForLogs(event)
-    // log execution details
-    logger.info("ENVIRONMENT VARIABLES: " + gson.toJson(System.getenv))
-    logger.info("CONTEXT: " + gson.toJson(context))
-    // process event
-    logger.info("EVENT: " + gson.toJson(event))
-    logger.info("EVENT TYPE: " + event.getClass.toString)
-    response
+      val parameters = event.get("queryStringParameters").toString
+
+      val valuesAsJSON = gson.fromJson(parameters, classOf[JsonObject])
+
+      val response = searchForLogs(valuesAsJSON)
+
+
+
+    return event.get("queryStringParameters").toString + response
   }
 
 }
 
-def getFile(event: util.Map[String, String]): String = {
+def getFile(): String = {
   val config = ObtainConfigReference("awsLambda") match {
     case Some(value) => value
     case None => throw new RuntimeException("Cannot obtain a reference to the config data.")
@@ -43,9 +44,9 @@ def getFile(event: util.Map[String, String]): String = {
   awsClient.getObjectAsString(bucket, key)
 }
 
-def searchForLogs(event: util.Map[String, String]): String = {
+def searchForLogs(event: JsonObject): String = {
   // Get file from AWS S3
-  val file = getFile(event)
+  val file = getFile()
   // Parse user defined target time
   val timeInfo = parseTime(event)
   // Search for index of log within target event
@@ -57,12 +58,13 @@ def searchForLogs(event: util.Map[String, String]): String = {
   RegexCheck.collectInjectLogs(file, timeInfo._1,timeUpperBound, searchResult)
 }
 
-def parseTime(event : util.Map[String, String]) : (String, String) = {
-  val targetTime = event.get("time")
-  val h = event.get("deltaHour")
-  val m = event.get("deltaMinute")
-  val s = event.get("deltaSecond")
-  val ms = event.get("deltaMillisecond")
+def parseTime(event: JsonObject) : (String, String) = {
+  val timeAsString = event.get("time").toString
+  val targetTime = timeAsString.substring(1, timeAsString.length - 1)
+  val h = event.get("deltaHour").toString
+  val m = event.get("deltaMinute").toString
+  val s = event.get("deltaSecond").toString
+  val ms = event.get("deltaMillisecond").toString
   val duration = List(h,m,s,ms).reduce((a,b) => a + ":" + b)
   (targetTime, duration)
 }

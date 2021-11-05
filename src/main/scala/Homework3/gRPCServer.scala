@@ -1,9 +1,10 @@
 package Homework3
 
-import java.util.logging.Logger
+import Homework3.gRPCServer.logger
 
+import java.util.logging.Logger
 import io.grpc.{Server, ServerBuilder}
-import SearchRPC._
+import SearchRPC.*
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -54,6 +55,7 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
   private class SearchRequestImp extends SearchLogsGrpc.SearchLogs {
     override def searchBetween(request: TimeRequest): Future[LogResponse] = {
       val url = createURL(request)
+      logger.info(s"Sending request to $url")
       val responseJsonFromAWSAPIGateway = scala.io.Source.fromURL(url).toString()
       val reply = LogResponse(s"Server successfullly responded: $responseJsonFromAWSAPIGateway")
       Future.successful(reply)
@@ -67,7 +69,7 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
     val deltaM = s"deltaMinute=${request.deltaM}"
     val deltaS = s"deltaSecond=${request.deltaS}"
     val deltaMs =s"deltaMillisecond=${request.deltaMs}"
-    s"$baseURL&$time&$deltaH&$deltaM&$deltaS&$deltaMs"
+    s"$baseURL?$time&$deltaH&$deltaM&$deltaS&$deltaMs"
   }
 
 }

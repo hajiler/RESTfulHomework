@@ -15,7 +15,7 @@ object gRPCClient {
   def main(args: Array[String]): Unit = {
     val client = gRPCClient("localhost", 50051)
     try {
-      val user = args.headOption.getOrElse("world")
+      val user = args.headOption.getOrElse("16:28:44.771")
       client.makeSearchRequest(user)
     } finally {
       client.shutdown()
