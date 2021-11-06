@@ -57,8 +57,14 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
     override def searchBetween(request: TimeRequest): Future[LogResponse] = {
       val url = createURL(request)
       logger.info(s"Sending request to $url")
-      val responseJsonFromAWSAPIGateway = scala.io.Source.fromURL(url).toString()
-      val reply = LogResponse(s"Server successfullly responded: $responseJsonFromAWSAPIGateway")
+      val responseJsonFromAWSAPIGateway = scala.io.Source.fromURL(url)
+        .bufferedReader()
+        .lines()
+        .skip(1)
+        .reduce((a,b) => s"$a\n$b")
+        .get()
+      logger.info(s"AWS Lambda responded: $responseJsonFromAWSAPIGateway")
+      val reply = LogResponse(responseJsonFromAWSAPIGateway)
       Future.successful(reply)
     }
   }
