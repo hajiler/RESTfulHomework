@@ -28,8 +28,10 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
   private[this] var server: Server = null
 
   private def start(): Unit = {
+    // Build server
     server = ServerBuilder
       .forPort(gRPCServer.port)
+      // Add service for SearchRequestRPC from gRPC client
       .addService(SearchLogsGrpc.bindService(new SearchRequestImp, executionContext))
       .build
       .start
@@ -55,8 +57,10 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
 
   private class SearchRequestImp extends SearchLogsGrpc.SearchLogs {
     override def searchBetween(request: TimeRequest): Future[LogResponse] = {
+      // Create HTTP url
       val url = createURL(request)
       logger.info(s"Sending request to $url")
+      // Send HTTP GET request to AWS Lambda endpoint, then read and process input
       val responseJsonFromAWSAPIGateway = scala.io.Source.fromURL(url)
         .bufferedReader()
         .lines()
@@ -64,6 +68,7 @@ class gRPCServer(executionContext: ExecutionContext) { self =>
         .reduce((a,b) => s"$a\n$b")
         .get()
       logger.info(s"AWS Lambda responded: $responseJsonFromAWSAPIGateway")
+      // Create protobuf result and send back to gRPC client
       val reply = LogResponse(responseJsonFromAWSAPIGateway)
       Future.successful(reply)
     }

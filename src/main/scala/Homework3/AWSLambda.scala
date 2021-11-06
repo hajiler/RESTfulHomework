@@ -16,23 +16,23 @@ import java.util.regex.Pattern
 class AWSLambda extends RequestHandler[util.Map[String, Object], String] {
   val logger = LoggerFactory.getLogger(classOf[AWSLambda])
   val gson = new GsonBuilder().setPrettyPrinting.create
+
+  //Handle HTTPs request.
   override def handleRequest(event: util.Map[String,Object], context: Context): String = {
-
     logger.info(s"Triggering search from ${event.toString}")
-
-      val parameters = event.get("queryStringParameters").toString
-
-      val valuesAsJSON = gson.fromJson(parameters, classOf[JsonObject])
-
-      val response = searchForLogs(valuesAsJSON)
-
-
+    // Read request input as string
+    val parameters = event.get("queryStringParameters").toString
+    // Convert input to jsonObject for parsing
+    val valuesAsJSON = gson.fromJson(parameters, classOf[JsonObject])
+    // Search for logs.
+    val response = searchForLogs(valuesAsJSON)
 
     return event.get("queryStringParameters").toString + response
   }
 
 }
 
+// Return AWS s3 file as string
 def getFile(): String = {
   val config = ObtainConfigReference("awsLambda") match {
     case Some(value) => value
@@ -58,6 +58,7 @@ def searchForLogs(event: JsonObject): String = {
   RegexCheck.collectInjectLogs(file, timeInfo._1,timeUpperBound, searchResult)
 }
 
+// Parse jsonObject from request into (start interval, duration)
 def parseTime(event: JsonObject) : (String, String) = {
   val timeAsString = event.get("time").toString
   val targetTime = timeAsString.substring(1, timeAsString.length - 1)

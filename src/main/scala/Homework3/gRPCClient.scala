@@ -14,6 +14,7 @@ object gRPCClient {
     case Some(value) => value
     case None => throw new RuntimeException("Cannot obtain a reference to the config data.")
   }
+
   def apply(host: String, port: Int): gRPCClient = {
     val channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build
     val blockingStub = SearchLogsGrpc.blockingStub(channel)
@@ -21,7 +22,9 @@ object gRPCClient {
   }
 
   def main(args: Array[String]): Unit = {
-    val client = gRPCClient("localhost", 50051)
+    val host = config.getString("awsLambda.Host")
+    val port = config.getInt("awsLambda.Port")
+    val client = gRPCClient(host, port)
     try {
       val user = args.headOption.getOrElse("16.28.44.771")
 
